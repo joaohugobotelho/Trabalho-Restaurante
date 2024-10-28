@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cardápio</title>
+</head>
+<body>
+    <h1>Cardápio</h1>
+    <ul>
+        {% for prato in pratos %}
+            <li>{{ prato.nome }} - R$ {{ prato.preco }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
