@@ -54,3 +54,11 @@ class Reserva(models.Model):
 
     def __str__(self):
         return f"Reserva de {self.cliente.nome} para {self.data_reserva}"
+
+
+
+
+
+
+
+
