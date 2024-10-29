@@ -7,8 +7,6 @@ def homepage(request):
     return render(request, 'index.html', contexto)
 
 
-from django.db import models
-
 class Categoria(models.Model):
     nome = models.CharField(max_length=50)
 
