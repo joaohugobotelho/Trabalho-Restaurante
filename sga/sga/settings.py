@@ -139,3 +139,9 @@ DATABASES = {
 
 
 
+import os
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+MEDIA_URL = '/media/bolinho-bacalhau.jpg/'
+

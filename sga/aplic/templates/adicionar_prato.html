@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Prato</title>
+</head>
+<body>
+    <h1>Adicionar Novo Prato</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Salvar</button>
+        <img src="{{ prato.imagem.url }}" alt="{{ prato.nome }}" width="300">
+
+    </form>
+</body>
+</html>

@@ -2,6 +2,7 @@ from django.db import models
 from django.shortcuts import render
 
 
+
 def homepage(request):
     contexto = {'mensagem': 'Bem-vindo ao meu site Django!'}
     return render(request, 'index.html', contexto)
@@ -18,6 +19,7 @@ class Prato(models.Model):
     descricao = models.TextField()
     preco = models.DecimalField(max_digits=6, decimal_places=2)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='pratos')
+    imagem = models.ImageField(upload_to='media/',blank=True, null=True)
 
 
     def __str__(self):
