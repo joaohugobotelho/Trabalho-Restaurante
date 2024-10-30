@@ -17,3 +17,8 @@ class PedidoAdmin(admin.ModelAdmin):
     inlines = [
         ItemPedidoInLine
     ]
+
+
+
+
+ 
