@@ -13,9 +13,9 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Quinto exemplo de barra de navegação">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
+            <a class="dropdown-item" href="{% url 'index' %}">J&B GASTRONOMIA</a>
                 <font style="vertical-align: inherit;">
-                    <font style="vertical-align: inherit;">J&B GASTRONOMIA</font>
+                    <font style="vertical-align: inherit;"></font>
                 </font>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05"
@@ -40,19 +40,19 @@
                             </font>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="pratos.html">
+                            <li><a class="dropdown-item" href="{% url 'pratos' %}">PRATOS PRINCIPAIS</a>
                                     <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">PRATOS PRINCIPAIS</font>
+                                        <font style="vertical-align: inherit;"></font>
                                     </font>
                                 </a></li>
-                            <li><a class="dropdown-item" href="enrtradas.html">
+                            <li><a class="dropdown-item" href="{% url 'entradas' %}">ENTRADAS</a>
                                     <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">ENTRADAS</font>
+                                        <font style="vertical-align: inherit;"></font>
                                     </font>
                                 </a></li>
-                            <li><a class="dropdown-item" href="bebidas.html">
+                            <li><a class="dropdown-item" href="{% url 'bebidas' %}">BEBIDAS</a>
                                     <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">BEBIDAS</font>
+                                        <font style="vertical-align: inherit;"></font>
                                     </font>
                                 </a></li>
                         </ul>

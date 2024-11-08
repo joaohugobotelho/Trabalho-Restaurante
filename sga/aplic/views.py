@@ -2,6 +2,9 @@ from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 from .models import Prato
 from .forms import PratoForm
+from django.views import View
+from django.shortcuts import render
+
 
 
 class IndexView(TemplateView):
@@ -26,3 +29,29 @@ def adicionar_prato(request):
     else:
         form = PratoForm()
     return render(request, 'adicionar_prato.html', {'form': form})
+
+
+class BebidasView(View):
+    def get(self, request):
+        return render(request, 'bebidas.html')
+
+    
+class EntradasView(View):
+    def get(self, request):
+        return render(request, 'entradas.html')
+    
+class PratosView(View):
+    def get(self, request):
+        return render (request, 'pratos.html') 
+
+    
+class SobreView(View):
+    def get(self, request):
+        return render(request, 'sobre.html')
+
+   
+
+
+
+
+
