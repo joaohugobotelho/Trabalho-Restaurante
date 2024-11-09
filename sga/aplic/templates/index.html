@@ -11,57 +11,34 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Quinto exemplo de barra de navegação">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Quinto exemplo de barra de navegação">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <font style="vertical-align: inherit;">
                     <font style="vertical-align: inherit;">J&B GASTRONOMIA</font>
                 </font>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05"
-                aria-controls="navbarsExample05" aria-expanded="false" aria-label="Alternar navegação">
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
+                aria-controls="navbarsExample03" aria-expanded="false" aria-label="Alternar navegação">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarsExample05">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    
+            <div class="navbar-collapse collapse" id="navbarsExample03">
+                <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                     <li class="nav-item">
-                        <a class="dropdown-item" href="{% url 'sobre' %}">NOSSA HISTÓRIA</a>
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">NOSSA HISTÓRIA</font>
-                            </font>
-                        </a>
+                        <a class="nav-link" href="{% url 'sobre' %}">NOSSA HISTÓRIA</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pratos.html">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Link</font>
-                            </font>
-                        </a>
+                        <a class="nav-link" href="pratos.html">Link</a>
                     </li>
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">MENU</font>
-                            </font>
+                            MENU
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'pratos' %}">PRATOS PRINCIPAIS</a>
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;"></font>
-                                    </font>
-                                </a></li>
-                            <li><a class="dropdown-item" href="{% url 'entradas' %}">ENTRADAS</a>
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;"></font>
-                                    </font>
-                                </a></li>
-                            <li><a class="dropdown-item" href="{% url 'bebidas' %}">BEBIDAS</a>
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;"></font>
-                                    </font>
-                                </a></li>
+                            <li><a class="dropdown-item" href="{% url 'pratos' %}">PRATOS PRINCIPAIS</a></li>
+                            <li><a class="dropdown-item" href="{% url 'entradas' %}">ENTRADAS</a></li>
+                            <li><a class="dropdown-item" href="{% url 'bebidas' %}">BEBIDAS</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -71,6 +48,7 @@
             </div>
         </div>
     </nav>
+    
 
 
 

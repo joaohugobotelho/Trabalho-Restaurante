@@ -11,65 +11,44 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Quinto exemplo de barra de navegação">
-        <div class="container-fluid">
-          <a class="dropdown-item" href="{% url 'index' %}">J&B GASTRONOMIA</a>
-                <font style="vertical-align: inherit;">
-                    <font style="vertical-align: inherit;"></font>
-                </font>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05"
-                aria-controls="navbarsExample05" aria-expanded="false" aria-label="Alternar navegação">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Quinto exemplo de barra de navegação">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">J&B GASTRONOMIA</font>
+            </font>
+        </a>
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
+            aria-controls="navbarsExample03" aria-expanded="false" aria-label="Alternar navegação">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarsExample05">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                      <a class="dropdown-item" href="{% url 'sobre' %}">NOSSA HISTÓRIA</a>
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;"></font>
-                            </font>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Link</font>
-                            </font>
-                        </a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">MENU</font>
-                            </font>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">PRATOS PRINCIPAIS</font>
-                                    </font>
-                                </a></li>
-                            <li><a class="dropdown-item" href="{% url 'entradas' %}">ENTRADAS</a>
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;"></font>
-                                    </font>
-                                </a></li>
-                            <li><a class="dropdown-item" href="{% url 'bebidas' %}">BEBIDAS</a>
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;"></font>
-                                    </font>
-                                </a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form role="search">
-                    <input class="form-control" type="search" placeholder="Procurar" aria-label="Procurar">
-                </form>
-            </div>
+        <div class="navbar-collapse collapse" id="navbarsExample03">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'sobre' %}">NOSSA HISTÓRIA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="pratos.html">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                        MENU
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'pratos' %}">PRATOS PRINCIPAIS</a></li>
+                        <li><a class="dropdown-item" href="{% url 'entradas' %}">ENTRADAS</a></li>
+                        <li><a class="dropdown-item" href="{% url 'bebidas' %}">BEBIDAS</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form role="search">
+                <input class="form-control" type="search" placeholder="Procurar" aria-label="Procurar">
+            </form>
         </div>
+    </div>
+</nav>
+
     </nav>
     <main>
         <div class="album py-5 bg-body-tertiary">
@@ -77,7 +56,7 @@
               <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <div class="col">
                   <div class="card shadow-sm">
-                    <img src="/sga/media/file-mignon.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
+                    <img src="/media/file-mignon.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
                     <div class="card-body">
                       <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><b>Filet Mignon ao Molho Madeira </b><p>Um suculento filé mignon grelhado, servido com um molho madeira encorpado, acompanhado de batatas rústicas assadas e legumes salteados. Um clássico que combina sofisticação e sabor.</p></font></font></p>
                       <div class="d-flex justify-content-between align-items-center">
@@ -88,7 +67,7 @@
     
                 <div class="col">
                   <div class="card shadow-sm">
-                    <img src="/sga/media/robalo.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
+                    <img src="/media/robalo.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
                     <div class="card-body">
                       <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><b>Robalo Grelhado com Purê de Mandioquinha</b><p>Lombo de robalo fresco, grelhado à perfeição e servido com um purê de mandioquinha cremoso. Acompanhado de um molho leve de ervas finas que realça o sabor delicado do peixe.</p></font></font></p>
                       <div class="d-flex justify-content-between align-items-center">
@@ -99,7 +78,7 @@
 
                 <div class="col">
                   <div class="card shadow-sm">
-                    <img src="/sga/media/cogumelo.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
+                    <img src="/media/cogumelo.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
                     <div class="card-body">
                       <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><b>Risoto de cogumelos secos</b><p>Um risoto cremoso de arroz arbóreo, enriquecido com funghi secchi, cogumelos frescos e um toque de parmesão. Uma combinação de sabores terrosos e envolventes, perfeita para os amantes de pratos vegetarianos.</p></font></font></p>
                       <div class="d-flex justify-content-between align-items-center">   
@@ -110,7 +89,7 @@
         
                 <div class="col">
                   <div class="card shadow-sm">
-                    <img src="/sga/media/cordeiro.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
+                    <img src="/media/cordeiro.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
                     <div class="card-body">
                       <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><b>Costela de Cordeiro ao Vinho Tinto</b><p>Costela de cordeiro assada lentamente, marinada com ervas e vinho tinto, garantindo uma carne macia e chinesa. Servida com purê de batatas e cenouras caramelizadas, criando um prato reconfortante e sofisticado.</p></font></font></p>
                       <div class="d-flex justify-content-between align-items-center">
@@ -121,7 +100,7 @@
 
                  <div class="col">
                   <div class="card shadow-sm">
-                    <img src="/sga/media/cordeiro.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
+                    <img src="/media/lagosta.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
                     <div class="card-body">
                       <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><b>Risoto de Lagosta com Aspargos e Limão Siciliano</b><p>Risoto cremoso de arroz arbóreo com pedaços de lagosta fresca, aspargos grelhados e raspas de limão siciliano para dar frescor ao prato. Finalizado com manteiga e queijo parmesão.</p></font></font></p>
                       <div class="d-flex justify-content-between align-items-center">
@@ -132,7 +111,7 @@
 
                 <div class="col">
                   <div class="card shadow-sm">
-                    <img src="/sga/media/cordeiro.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
+                    <img src="/media/polvo.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
                     <div class="card-body">
                       <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><b>Polvo Grelhado com Purê de Couve-flor e Pesto de Manjericão</b><p>Polvo grelhado até ficar crocante por fora e macio por dentro, servido com purê de couve-flor e pesto de manjericão. Decorado com tomates cereja assados e amêndoas torradas.</p></font></font></p>
                       <div class="d-flex justify-content-between align-items-center">
@@ -143,7 +122,7 @@
         
                 <div class="col">
                   <div class="card shadow-sm">
-                    <img src="/sga/media/cordeiro.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
+                    <img src="/media/salmao.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
                     <div class="card-body">
                       <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><b>Salmão em Crosta de Ervas com Ceviche de Manga e Arroz Negro</b><p>Salmão grelhado com crosta de ervas, servido com um ceviche de manga e pimenta, acompanhado de arroz negro cremoso. Combina o frescor e o sabor tropical com um toque elegante.</p></font></font></p>
                       <div class="d-flex justify-content-between align-items-center">
@@ -154,7 +133,7 @@
 
                 <div class="col">
                   <div class="card shadow-sm">
-                    <img src="/sga/media/cordeiro.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
+                    <img src="/media/bacalhau.webp" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
                     <div class="card-body">
                       <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><b>Bacalhau à Lagareiro com Batatas ao Murro</b><p>Lombo de bacalhau confitado em azeite, alho e ervas, servido com batatas ao murro, cebolas caramelizadas e pimentões assados. Finalizado com azeitonas pretas e folhas de louro.</p></font></font></p>
                       <div class="d-flex justify-content-between align-items-center">
@@ -165,7 +144,7 @@
 
                 <div class="col">
                   <div class="card shadow-sm">
-                    <img src="/sga/media/cordeiro.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
+                    <img src="/media/javali.jpg" class="card-img-top" alt="Imagem do prato" width="100%" height="225">
                     <div class="card-body">
                       <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><b>Carré de Javali com Molho de Mirtilo e Purê de Raízes</b><p>Carré de javali grelhado e servido com um molho de mirtilo e vinho tinto, acompanhado por um purê rústico de raízes, como batata-baroa e cenoura.</p></font></font></p>
                       <div class="d-flex justify-content-between align-items-center">
