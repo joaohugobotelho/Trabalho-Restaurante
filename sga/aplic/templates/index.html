@@ -11,43 +11,41 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Quinto exemplo de barra de navegação">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'index' %}">
-                <font style="vertical-align: inherit;">
-                    <font style="vertical-align: inherit;">J&B GASTRONOMIA</font>
-                </font>
-            </a>
-            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
-                aria-controls="navbarsExample03" aria-expanded="false" aria-label="Alternar navegação">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-    
-            <div class="navbar-collapse collapse" id="navbarsExample03">
-                <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'sobre' %}">NOSSA HISTÓRIA</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pratos.html">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            MENU
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'pratos' %}">PRATOS PRINCIPAIS</a></li>
-                            <li><a class="dropdown-item" href="{% url 'entradas' %}">ENTRADAS</a></li>
-                            <li><a class="dropdown-item" href="{% url 'bebidas' %}">BEBIDAS</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form role="search">
-                    <input class="form-control" type="search" placeholder="Procurar" aria-label="Procurar">
-                </form>
+    <nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom" data-bs-theme="dark">
+        <div class="container">
+          <a class="navbar-brand d-md-none" href="#">
+            <svg class="bi" width="24" height="24"><use xlink:href="#aperture"></use></svg><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+            CARDÁPIO
+          </font></font></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas" aria-label="Alternar navegação">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasLabel"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">CARDÁPIO</font></font></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
             </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav flex-grow-1 justify-content-between">
+                <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">J&B GASTRONOMIA
+                  <svg class="bi" width="24" height="24"><use xlink:href="#aperture"></use></svg>
+                </a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'sobre' %}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">NOSSA HISTÓRIA</font></font></a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'entradas' %}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ENTRADAS</font></font></a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pratos' %}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">PRATOS PRINCIPAIS</font></font></a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'sobremesas' %}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">SOBREMESAS</font></font></a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'bebidas' %}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">BEBIDAS</font></font></a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'reserva' %}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">RESERVA</font></font></a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'delivery' %}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">DELIVERY</font></font></a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'cadastro_usuario' %}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">CADASTRE-SE</font></font></a></li>
+
+                  <svg class="bi" width="24" height="24"><use xlink:href="#cart"></use></svg>
+                </a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-    </nav>
+      </nav>
     
 
 

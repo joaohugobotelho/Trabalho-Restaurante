@@ -4,6 +4,7 @@ from .models import Prato
 from .forms import PratoForm
 from django.views import View
 from django.shortcuts import render
+from .forms import UsuarioForm
 
 
 
@@ -48,6 +49,29 @@ class PratosView(View):
 class SobreView(View):
     def get(self, request):
         return render(request, 'sobre.html')
+
+class DeliveryView(View):
+    def get(self, request):
+        return render(request, 'delivery.html')
+
+class ReservaView(View):
+    def get(self, request):
+        return render(request, 'reserva.html')
+    
+class SobremesaView(View):
+    def get(self, request):
+        return render(request, 'sobremesas.html')
+    
+def cadastro_usuario(request):
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('sucesso') 
+    else:
+        form = UsuarioForm()
+
+    return render(request, 'cadastro.html', {'form': form})
 
    
 
