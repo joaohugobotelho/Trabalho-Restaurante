@@ -1,11 +1,8 @@
 from django.db import models
 from django.shortcuts import render
+from django.utils import timezone
 
 
-
-def homepage(request):
-    contexto = {'mensagem': 'Bem-vindo ao meu site Django!'}
-    return render(request, 'index.html', contexto)
 
 
 class Categoria(models.Model):
@@ -15,10 +12,9 @@ class Categoria(models.Model):
         return self.nome
 
 class Prato(models.Model):
-    nome = models.CharField(max_length=100)
+    nome = models.CharField(max_length=255)
     descricao = models.TextField()
-    preco = models.DecimalField(max_digits=6, decimal_places=2)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='pratos')
+    preco = models.DecimalField(max_digits=10, decimal_places=2)
     imagem = models.ImageField(upload_to='media/',blank=True, null=True)
 
 
@@ -26,21 +22,18 @@ class Prato(models.Model):
         return self.nome
 
 
-class Cliente(models.Model):
-    nome = models.CharField(max_length=100)
-    telefone = models.CharField(max_length=20)
-    email = models.EmailField()
-
-    def __str__(self):
-        return self.nome
 
 class Pedido(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos')
-    data_pedido = models.DateTimeField(auto_now_add=True)
-    total = models.DecimalField(max_digits=8, decimal_places=2)
+    nome_cliente = models.CharField(max_length=100)
+    prato = models.ForeignKey(Prato, on_delete=models.CASCADE)
+    quantidade = models.IntegerField()
+    data_pedido = models.DateTimeField(default=timezone.now)
+    @property
+    def total(self):
+        return self.quantidade * self.preco_unitario
 
     def __str__(self):
-        return f"Pedido #{self.id} - {self.cliente.nome}"
+        return f"Pedido de {self.nome_cliente} - {self.prato.nome}"
 
 class ItemPedido(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='itens')
@@ -50,21 +43,16 @@ class ItemPedido(models.Model):
     def __str__(self):
         return f"{self.quantidade}x {self.prato.nome} (Pedido #{self.pedido.id})"
 
-class Reserva(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='reservas')
-    data_reserva = models.DateTimeField()
-    numero_pessoas = models.PositiveIntegerField()
+class Bebida(models.Model):
+    nome = models.CharField(max_length=255)
+    preco = models.DecimalField(max_digits=5, decimal_places=2) 
+    descricao = models.TextField(blank=True, null=True)  
+    imagem = models.ImageField(upload_to='media/', blank=True, null=True)  
 
-    def __str__(self):
-        return f"Reserva de {self.cliente.nome} para {self.data_reserva}"
-    
-class Usuario(models.Model):
-    nome = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
-    senha = models.CharField(max_length=100)
 
     def __str__(self):
         return self.nome
+
 
 
 

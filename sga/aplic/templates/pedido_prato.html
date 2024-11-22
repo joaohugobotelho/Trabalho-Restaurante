@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faça seu Pedido - Restaurante</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Escolha Seus Pratos</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                {% for prato in pratos %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="{{ prato.imagem.url }}" class="card-img-top" alt="{{ prato.nome }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ prato.nome }}</h5>
+                            <p class="card-text">{{ prato.descricao }}</p>
+                            <p class="card-text"><strong>Preço:</strong> R${{ prato.preco }}</p>
+                            <div class="form-group">
+                                <label for="quantidade_{{ prato.id }}">Quantidade</label>
+                                <input 
+                                    type="number" 
+                                    name="quantidade_{{ prato.id }}" 
+                                    class="form-control" 
+                                    placeholder="Quantidade" 
+                                    min="1"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-success btn-lg">Finalizar Pedido</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

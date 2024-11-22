@@ -1,15 +1,31 @@
+<!-- cardapio.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardápio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Cardápio</h1>
-    <ul>
-        {% for prato in pratos %}
-            <li>{{ prato.nome }} - R$ {{ prato.preco }}</li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <h1 class="my-4">Nosso Cardápio</h1>
+        
+        <div class="row">
+            {% for prato in pratos %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="{{ prato.imagem.url }}" class="card-img-top" alt="{{ prato.nome }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ prato.nome }}</h5>
+                            <p class="card-text">{{ prato.descricao }}</p>
+                            <p class="card-text"><strong>R${{ prato.preco }}</strong></p>
+                            <a href="{% url 'detalhes_pratos' prato.id %}" class="btn btn-primary">Ver Detalhes</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>
