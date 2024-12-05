@@ -1,96 +1,194 @@
-from django.views.generic import TemplateView
-from django.shortcuts import render, redirect
-from .forms import PratoForm
-from django.views import View
-from django.shortcuts import render
-#from .forms import UsuarioForm
-from django.views.generic import ListView, DetailView, CreateView
-from django.shortcuts import redirect
-from .models import Prato, Pedido, Bebida
-from django import forms
+from django.views.generic import TemplateView, ListView, CreateView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.urls import reverse_lazy
+from .models import Pedido, Bebida, Prato, Categoria, ItemPedido
 from .forms import PedidoForm
+from django.views.generic import CreateView
+from django.contrib import messages
+from .models import ItemCarrinho, Carrinho
 
-
-def adicionar_prato(request):
-    if request.method == 'POST':
-        form = PratoForm(request.POST, request.FILES)
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('lista_pratos')
+            form.save()  # Cria o usuário
+            messages.success(request, "Cadastro realizado com sucesso! Faça login.")
+            return redirect("login")  # Redireciona para a página de login
+        else:
+            messages.error(request, "Erro no cadastro. Verifique os campos preenchidos.")
     else:
-        form = PratoForm()
-    return render(request, 'adicionar_prato.html', {'form': form})
+        form = UserCreationForm()
+    
+    return render(request, "register.html", {"form": form})
+
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Login realizado com sucesso!")
+            return redirect("home")  # Redirecione para a página principal
+        else:
+            messages.error(request, "Usuário ou senha incorretos.")
+    return render(request, "login.html")
+
+# View personalizada para login
+def custom_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')  # Redireciona para a página principal
+        else:
+            return render(request, 'login.html', {'error': 'Usuário ou senha inválidos.'})
+    return render(request, 'login.html')  # Exibe o formulário de login
+
+@login_required
+def detalhes_prato(request, prato_id):
+    prato = get_object_or_404(Prato, id=prato_id)  # Certifique-se de que o modelo `Prato` tem o campo `id`.
+    return render(request, 'detalhes_prato.html', {'prato': prato})
+
+@method_decorator(login_required, name='dispatch')
+class PedidoPratoView(CreateView):
+    model = Pedido
+    form_class = PedidoForm
+    template_name = 'pedido_prato.html'
+    success_url = reverse_lazy('carrinho')
+
+    def form_valid(self, form):
+        pedido = form.save(commit=False)
+        pedido.usuario = self.request.user
+        pedido.save()
+        return super().form_valid(form)
+    
+# Página inicial (após login)
+@method_decorator(login_required, name='dispatch')
+class IndexView(TemplateView):
+    template_name = 'index.html'
 
 
+# Listagem de pratos
+@method_decorator(login_required, name='dispatch')
 class ListagemPratosView(ListView):
     model = Prato
     template_name = 'listagem_pratos.html'
     context_object_name = 'pratos'
 
-class DetalhesPratoView(View):
-    def get(self, request, id):
-        prato = Prato.objects.get(id=id) 
-        return render(request, 'detalhes_prato.html', {'prato': prato})
+    def get_queryset(self):
+        categoria_id = self.request.GET.get('categoria')
+        if categoria_id:
+            return Prato.objects.filter(categoria_id=categoria_id)
+        return Prato.objects.all()
 
-class PedidoPratoView(View):
-    def get(self, request):
-        pratos = Prato.objects.all() 
-        bebidas = Bebida.objects.all() 
-        return render(request, 'pedido_prato.html', {'pratos': pratos, 'bebidas': bebidas})
-
-
-    def form_valid(self, form):
-        return super().form_valid(form)
-
-class PedidoView(View):
-    def get(self, request):
-        pedidos = Pedido.objects.all()  
-
-        return render(request, 'pedido.html', {'pedidos': pedidos})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categorias'] = Categoria.objects.all()
+        return context
 
 
-class IndexView(TemplateView):
-    template_name = 'index.html'
-    def index(request):
-        pratos = Prato.objects.all()  
-        return render(request, 'index.html', {'pratos': pratos})
+# Adicionar ao carrinho
+@login_required
+def adicionar_ao_carrinho(request, prato_id):
+    prato = get_object_or_404(Prato, id=prato_id)
+    quantidade = int(request.POST.get("quantidade", 1))  # Define 1 como valor padrão
+    carrinho, _ = Carrinho.objects.get_or_create(usuario=request.user)
+    
+    # Tenta obter ou criar o item no carrinho
+    item, criado = ItemCarrinho.objects.get_or_create(
+        carrinho=carrinho,
+        prato=prato,
+        defaults={"quantidade": quantidade},  # Passa a quantidade inicial ao criar
+    )
+    
+    # Se o item já existia, incrementa a quantidade
+    if not criado:
+        item.quantidade += quantidade
+        item.save()
 
-def criar_pedido(request):
-    if request.method == 'POST':
-        nome_cliente = request.POST.get('nome_cliente', 'Anônimo') 
-        
-        prato_id = request.POST.get('prato_id')
-        quantidade = request.POST.get('quantidade')
+    messages.success(request, f"{prato.nome} adicionado ao carrinho com sucesso!")
+    return redirect("carrinho")
 
-        
-        prato = Prato.objects.get(id=prato_id)
-        
-        pedido = Pedido(nome_cliente=nome_cliente, prato=prato, quantidade=quantidade)
-        
-        pedido.save()
-        
-        return redirect('pedido_sucesso')  
-    else:
-        pratos = Prato.objects.all()
-        return render(request, 'pedido_prato.html', {'pratos': pratos})
 
-def detalhes_prato(request, nome):
-    prato = Prato.objects.get(nome=nome) 
-    return render(request, 'detalhes_prato.html', {'prato': prato})
 
-def pedido_prato(request):
-    if request.method == 'POST':
-        form = PedidoForm(request.POST)
-        
-        if form.is_valid():
-            
-            form.save()
-            
-            return redirect('sucesso_pedido')  
-    else:  
-        form = PedidoForm()
+# Visualizar carrinho
+@login_required
+def carrinho_view(request):
+    carrinho, _ = Carrinho.objects.get_or_create(usuario=request.user)
+    itens = carrinho.itens.all()  # Certifique-se de que 'itens' está relacionado corretamente no modelo
+    total = sum(item.subtotal() for item in itens)
+    return render(request, "carrinho.html", {"itens": itens, "total": total})
 
-    return render(request, 'pedido_prato.html', {'form': form})
 
+# Remover item do carrinho
+@login_required
+def remover_item_carrinho(request, item_id):
+    # Obtém o carrinho do usuário logado
+    carrinho = get_object_or_404(Carrinho, usuario=request.user)
+
+    # Obtém o item do carrinho que o usuário quer remover (verificando que ele pertence ao carrinho)
+    item = get_object_or_404(ItemCarrinho, id=item_id, carrinho=carrinho)
+
+    if request.method == "POST":
+        item.delete()
+        messages.success(request, "Item removido com sucesso!")
+    
+    return redirect("carrinho")  # Redireciona de volta para o carrinho
+
+
+# Finalizar pedido
+@login_required
+def finalizar_pedido(request):
+    carrinho = get_object_or_404(Carrinho, usuario=request.user)
+
+    # Verifica se o carrinho tem itens
+    if not carrinho.itens.exists():
+        messages.error(request, "Seu carrinho está vazio!")
+        return redirect("carrinho")
+
+    # Cria o pedido
+    pedido = Pedido.objects.create(usuario=request.user, nome_cliente=request.user.username)
+
+    # Transfere os itens do carrinho para o pedido
+    for item_carrinho in carrinho.itens.all():
+        ItemPedido.objects.create(
+            pedido=pedido,
+            prato=item_carrinho.prato,
+            quantidade=item_carrinho.quantidade,
+        )
+
+    # Limpa o carrinho após transferir os itens
+    carrinho.itens.all().delete()
+
+    messages.success(request, "Pedido finalizado com sucesso!")
+    return redirect("sucesso_pedido")  # Redireciona para uma página de sucesso
+
+
+
+# Mensagem de sucesso do pedido
+@login_required
 def sucesso_pedido(request):
     return render(request, 'sucesso_pedido.html')
+
+
+# Listagem de bebidas
+@method_decorator(login_required, name='dispatch')
+class ListagemBebidasView(ListView):
+    model = Bebida
+    template_name = 'listagem_bebidas.html'
+    context_object_name = 'bebidas'
+
+
+# Listagem de pedidos
+@method_decorator(login_required, name='dispatch')
+class ListagemPedidosView(ListView):
+    model = Pedido
+    template_name = 'listagem_pedidos.html'
+    context_object_name = 'pedidos'

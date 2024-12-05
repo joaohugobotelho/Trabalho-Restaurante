@@ -1,34 +1,46 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bem-vindo ao Restaurante</title>
+    <title>Página Principal</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <div class="container text-center">
-        <h1 class="my-4">Bem-vindo ao Nosso Restaurante!</h1>
-        <p>Explore nosso cardápio e faça seu pedido online.</p>
-       
-
-        <div class="row">
-            <div class="col-md-4">
-                <a href="{% url 'pedido_prato' %}" class="btn btn-primary btn-lg">Faça seu Pedido</a>
-            </div>
-            <div class="col-md-4">
-
-            </div>
-            <div class="col-md-4">
-                <a href="{% url 'listagem_pratos' %}" class="btn btn-info btn-lg">Ver Pedidos</a>
-            </div>
+    <!-- Cabeçalho com barra de navegação -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">JB Gastronomia</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'listagem_pratos' %}">Pratos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'carrinho' %}">Carrinho</a>
+                </li>
+                
+            </ul>
         </div>
-        
+    </nav>
 
-        
-    
+    <!-- Conteúdo principal -->
+    <div class="container mt-5">
+        <h1 class="text-center">Bem-vindo à Página Principal</h1>
+        <p class="text-center">Escolha uma opção no menu para continuar.</p>
     </div>
+
+    <!-- Rodapé -->
+    <footer class="bg-light text-center text-lg-start mt-5">
+        <div class="text-center p-3">
+            © 2024 Restaurante - Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <!-- Scripts do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-

@@ -3,42 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faça seu Pedido - Restaurante</title>
+    <title>Restaurante - Pratos</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+    <!-- Menu de navegação -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">Restaurante</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'listagem_pratos' %}">Pratos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'carrinho' %}">Carrinho</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo principal -->
     <div class="container my-5">
-        <h1 class="text-center mb-4">Escolha Seus Pratos</h1>
-        <form method="POST">
-            {% csrf_token %}
-            <div class="row">
-                {% for prato in pratos %}
-                <div class="col-md-4">
-                    <div class="card mb-4">
+        <h1 class="text-center mb-4">Pratos Disponíveis</h1>
+        <div class="row">
+            {% for prato in pratos %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <!-- Verifica se há imagem para o prato -->
+                    {% if prato.imagem %}
                         <img src="{{ prato.imagem.url }}" class="card-img-top" alt="{{ prato.nome }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ prato.nome }}</h5>
-                            <p class="card-text">{{ prato.descricao }}</p>
-                            <p class="card-text"><strong>Preço:</strong> R${{ prato.preco }}</p>
+                    {% else %}
+                        <img src="{% static 'placeholder.jpg' %}" class="card-img-top" alt="Imagem não disponível">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ prato.nome }}</h5>
+                        <p class="card-text">{{ prato.descricao }}</p>
+                        <p class="card-text"><strong>Preço:</strong> R${{ prato.preco }}</p>
+                        <form method="POST" action="{% url 'adicionar_ao_carrinho' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="prato_id" value="{{ prato.id }}">
                             <div class="form-group">
                                 <label for="quantidade_{{ prato.id }}">Quantidade</label>
                                 <input 
                                     type="number" 
-                                    name="quantidade_{{ prato.id }}" 
+                                    name="quantidade" 
+                                    id="quantidade_{{ prato.id }}" 
                                     class="form-control" 
                                     placeholder="Quantidade" 
-                                    min="1"
-                                />
+                                    min="1" 
+                                    required>
                             </div>
-                        </div>
+                            <button type="submit" class="btn btn-primary btn-block">Adicionar ao Carrinho</button>
+                        </form>
                     </div>
                 </div>
-                {% endfor %}
             </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-success btn-lg">Colocar no carrinho</button>
+            {% empty %}
+            <!-- Caso não haja pratos cadastrados -->
+            <div class="col-12">
+                <div class="alert alert-warning text-center">
+                    Nenhum prato disponível no momento.
+                </div>
             </div>
-        </form>
+            {% endfor %}
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
