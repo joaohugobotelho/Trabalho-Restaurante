@@ -5,11 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedido Realizado com Sucesso</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; 
+        }
+        .success-container {
+            background-color: #ffffff; 
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+        .success-icon {
+            font-size: 60px;
+            color: #28a745; 
+        }
+    </style>
 </head>
 <body>
-    <div class="container my-5">
-        <h1 class="text-center">Pedido Realizado com Sucesso!</h1>
-        <p class="text-center">Seu pedido foi registrado. Agradecemos pela sua escolha!</p>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="success-container text-center">
+            <div class="success-icon mb-3">✔</div>
+            <h1 class="text-success">Pedido Realizado com Sucesso!</h1>
+            <p class="text-muted">Seu pedido foi registrado. Agradecemos pela sua escolha!</p>
+            <a href="{% url 'index' %}" class="btn btn-primary mt-5">Voltar ao Início</a>
+        </div>
     </div>
 </body>
 </html>

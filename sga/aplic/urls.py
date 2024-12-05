@@ -35,6 +35,8 @@ urlpatterns = [
     # Rotas adicionais (caso necessário)
     path('bebidas/', ListagemBebidasView.as_view(), name='listagem_bebidas'),  # Listagem de bebidas
     path('pedidos/', ListagemPedidosView.as_view(), name='listagem_pedidos'),  # Listagem de pedidos
+    path('logout/', views.user_logout, name='logout'),
+
 ]
 
 # Suporte para arquivos de mídia em ambiente de desenvolvimento

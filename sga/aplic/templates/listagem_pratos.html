@@ -56,21 +56,30 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">JB Gastronomia</a>
+        <a class="navbar-brand" href="{% url 'index' %}">JB Gastronomia</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto d-flex align-items-center">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'listagem_pratos' %}">Pratos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'carrinho' %}">Carrinho</a>
                 </li>
-                
+                <li class="nav-item d-flex align-items-center">
+                    <form method="post" action="{% url 'logout' %}" class="m-0 p-0 d-flex align-items-center">
+                        {% csrf_token %}
+                        <button type="submit" class="btn" style="background-color: #e74c3c; color: white; border: none;">
+                            Logout
+                        </button>
+                    </form>
+                </li>
             </ul>
         </div>
+        
+        
     </nav>
 
     <div class="container mt-5">

@@ -10,6 +10,8 @@ from .forms import PedidoForm
 from django.views.generic import CreateView
 from django.contrib import messages
 from .models import ItemCarrinho, Carrinho
+from django.contrib.auth import logout
+
 
 def register(request):
     if request.method == "POST":
@@ -192,3 +194,9 @@ class ListagemPedidosView(ListView):
     model = Pedido
     template_name = 'listagem_pedidos.html'
     context_object_name = 'pedidos'
+
+
+def user_logout(request):
+    if request.method == 'GET':  
+        return redirect('login') 
+    return redirect('listagem_pratos') 
