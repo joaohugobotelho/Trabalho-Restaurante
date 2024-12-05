@@ -17,9 +17,9 @@ def register(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()  # Cria o usuário
+            form.save() 
             messages.success(request, "Cadastro realizado com sucesso! Faça login.")
-            return redirect("login")  # Redireciona para a página de login
+            return redirect("login")  
         else:
             messages.error(request, "Erro no cadastro. Verifique os campos preenchidos.")
     else:
@@ -35,7 +35,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Login realizado com sucesso!")
-            return redirect("home")  # Redirecione para a página principal
+            return redirect("home") 
         else:
             messages.error(request, "Usuário ou senha incorretos.")
     return render(request, "login.html")
@@ -48,14 +48,14 @@ def custom_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('index')  # Redireciona para a página principal
+            return redirect('index')  
         else:
             return render(request, 'login.html', {'error': 'Usuário ou senha inválidos.'})
-    return render(request, 'login.html')  # Exibe o formulário de login
+    return render(request, 'login.html') 
 
 @login_required
 def detalhes_prato(request, prato_id):
-    prato = get_object_or_404(Prato, id=prato_id)  # Certifique-se de que o modelo `Prato` tem o campo `id`.
+    prato = get_object_or_404(Prato, id=prato_id)  
     return render(request, 'detalhes_prato.html', {'prato': prato})
 
 @method_decorator(login_required, name='dispatch')
@@ -113,7 +113,7 @@ def adicionar_ao_carrinho(request, prato_id):
     item, criado = ItemCarrinho.objects.get_or_create(
         carrinho=carrinho,
         prato=prato,
-        defaults={"quantidade": quantidade},  # Define a quantidade inicial ao criar
+        defaults={"quantidade": quantidade},  
     )
 
     if not criado:
@@ -157,14 +157,14 @@ def remover_item_carrinho(request, item_id):
     # Obtém o carrinho do usuário logado
     carrinho = get_object_or_404(Carrinho, usuario=request.user)
 
-    # Obtém o item do carrinho que o usuário quer remover (verificando que ele pertence ao carrinho)
+    # Obtém o item do carrinho que o usuário quer remover
     item = get_object_or_404(ItemCarrinho, id=item_id, carrinho=carrinho)
 
     if request.method == "POST":
         item.delete()
         messages.success(request, "Item removido com sucesso!")
     
-    return redirect("carrinho")  # Redireciona de volta para o carrinho
+    return redirect("carrinho") 
 
 
 # Finalizar pedido
@@ -192,7 +192,7 @@ def finalizar_pedido(request):
     carrinho.itens.all().delete()
 
     messages.success(request, "Pedido finalizado com sucesso!")
-    return redirect("sucesso_pedido")  # Redireciona para uma página de sucesso
+    return redirect("sucesso_pedido")  
 
 
 

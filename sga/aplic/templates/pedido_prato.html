@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <!-- Menu de navegação -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="{% url 'index' %}">Restaurante</a>
@@ -28,14 +27,12 @@
         </div>
     </nav>
 
-    <!-- Conteúdo principal -->
     <div class="container my-5">
         <h1 class="text-center mb-4">Pratos Disponíveis</h1>
         <div class="row">
             {% for prato in pratos %}
             <div class="col-md-4">
                 <div class="card mb-4">
-                    <!-- Verifica se há imagem para o prato -->
                     {% if prato.imagem %}
                         <img src="{{ prato.imagem.url }}" class="card-img-top" alt="{{ prato.nome }}">
                     {% else %}
@@ -65,7 +62,6 @@
                 </div>
             </div>
             {% empty %}
-            <!-- Caso não haja pratos cadastrados -->
             <div class="col-12">
                 <div class="alert alert-warning text-center">
                     Nenhum prato disponível no momento.

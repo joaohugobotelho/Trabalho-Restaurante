@@ -53,7 +53,6 @@
                 <tr>
                     <td>{{ item.prato.nome }}</td>
                     <td>
-                        <!-- Formulário para atualizar quantidade -->
                         <form method="POST" action="{% url 'alterar_quantidade' item.id %}" class="form-inline">
                             {% csrf_token %}
                             <input type="number" name="quantidade" value="{{ item.quantidade }}" min="1" class="form-control" style="width: 80px; display: inline-block;" />
