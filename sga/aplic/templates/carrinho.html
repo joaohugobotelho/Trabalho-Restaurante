@@ -36,51 +36,59 @@
     
     
     <div class="container my-5">
-        <h1 class="text-center">Seu Carrinho</h1>
-        <table class="table table-bordered">
-            <thead>
+    <h1 class="text-center">Seu Carrinho</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Prato</th>
+                <th>Quantidade</th>
+                <th>Preço Unitário</th>
+                <th>Subtotal</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if itens %}
+                {% for item in itens %}
                 <tr>
-                    <th>Prato</th>
-                    <th>Quantidade</th>
-                    <th>Preço Unitário</th>
-                    <th>Subtotal</th>
-                    <th>Ações</th>
+                    <td>{{ item.prato.nome }}</td>
+                    <td>
+                        <!-- Formulário para atualizar quantidade -->
+                        <form method="POST" action="{% url 'alterar_quantidade' item.id %}" class="form-inline">
+                            {% csrf_token %}
+                            <input type="number" name="quantidade" value="{{ item.quantidade }}" min="1" class="form-control" style="width: 80px; display: inline-block;" />
+                            <button type="submit" class="btn btn-primary btn-sm">Atualizar</button>
+                        </form>
+                    </td>
+                    <td>R${{ item.prato.preco }}</td>
+                    <td>R${{ item.subtotal }}</td>
+                    <td>
+                        <form method="POST" action="{% url 'remover_item' item.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Remover</button>
+                        </form>                            
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                {% if itens %}
-                    {% for item in itens %}
-                    <tr>
-                        <td>{{ item.prato.nome }}</td>
-                        <td>{{ item.quantidade }}</td>
-                        <td>R${{ item.prato.preco }}</td>
-                        <td>R${{ item.subtotal }}</td>
-                        <td>
-                            <form method="POST" action="{% url 'remover_item' item.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger">Remover</button>
-                            </form>                            
-                        </td>
-                    </tr>
-                    {% endfor %}
-                {% else %}
-                    <tr>
-                        <td colspan="5" class="text-center">Seu carrinho está vazio.</td>
-                    </tr>
-                {% endif %}
-            </tbody>
-        </table>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Seu carrinho está vazio.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
 
-        {% if itens %}
-        <div class="text-right">
-            <h4>Total: R${{ total }}</h4>
-        </div>
-        <form method="POST" action="{% url 'finalizar_pedido' %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-success btn-block">Finalizar Pedido</button>
-        </form>
-        {% endif %}
+    {% if itens %}
+    <div class="text-right">
+        <h4>Total: R${{ total }}</h4>
     </div>
+    <form method="POST" action="{% url 'finalizar_pedido' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success btn-block">Finalizar Pedido</button>
+    </form>
+    {% endif %}
+</div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

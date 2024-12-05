@@ -36,6 +36,7 @@ urlpatterns = [
     path('bebidas/', ListagemBebidasView.as_view(), name='listagem_bebidas'),  # Listagem de bebidas
     path('pedidos/', ListagemPedidosView.as_view(), name='listagem_pedidos'),  # Listagem de pedidos
     path('logout/', views.user_logout, name='logout'),
+    path('carrinho/alterar/<int:item_id>/', views.alterar_quantidade, name='alterar_quantidade'),
 
 ]
 
