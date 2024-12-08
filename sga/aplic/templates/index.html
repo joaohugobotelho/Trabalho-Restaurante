@@ -23,6 +23,8 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <span class="text-white mr-3">Bem-vindo, {{ user.first_name|default:user.username }}!</span>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto d-flex align-items-center">
                 <li class="nav-item">
@@ -31,17 +33,25 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'carrinho' %}">Carrinho</a>
                 </li>
-                <li class="nav-item d-flex align-items-center">
-                    <form method="post" action="{% url 'logout' %}" class="m-0 p-0 d-flex align-items-center">
-                        {% csrf_token %}
-                        <button type="submit" class="btn" style="background-color: #e74c3c; color: white; border: none;">
-                            Logout
-                        </button>
-                    </form>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item d-flex align-items-center">
+                        <form method="post" action="{% url 'logout' %}" class="m-0 p-0 d-flex align-items-center">
+                            {% csrf_token %}
+                            <button type="submit" class="btn" style="background-color: #e74c3c; color: white; border: none;">
+                                Logout
+                            </button>
+                            
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </nav>
+    
     
     
 

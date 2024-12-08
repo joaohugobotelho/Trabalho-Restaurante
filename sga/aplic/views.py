@@ -222,3 +222,7 @@ def user_logout(request):
     if request.method == 'GET':  
         return redirect('login') 
     return redirect('listagem_pratos') 
+
+
+def user_context(request):
+    return {'user': request.user}
